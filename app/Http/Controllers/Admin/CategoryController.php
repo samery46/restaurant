@@ -7,9 +7,11 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\CategoryCreateRequest;
 use App\Http\Requests\Admin\CategoryUpdateRequest;
 use App\Models\Category;
+use Illuminate\Http\JsonResponse;
 // use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\View\View;
 use Str;
 
@@ -18,7 +20,7 @@ class CategoryController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(CategoryDataTable $dataTable)
+    public function index(CategoryDataTable $dataTable): View|JsonResponse
     {
         return $dataTable->render('admin.product.category.index');
     }
@@ -69,7 +71,7 @@ class CategoryController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(CategoryUpdateRequest $request, string $id)
+    public function update(CategoryUpdateRequest $request, string $id): RedirectResponse
     {
         // dd($request->all());
         $category = Category::findOrFail($id);
@@ -87,7 +89,7 @@ class CategoryController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(string $id): Response
     {
         try {
             $category = Category::findOrFail($id);
